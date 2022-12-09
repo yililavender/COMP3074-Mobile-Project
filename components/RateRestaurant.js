@@ -1,10 +1,10 @@
-// Rate Restaurant by stars
-import {SafeAreaView,StyleSheet,View,Text,Image,TouchableOpacity,} from 'react-native';
+
+import {SafeAreaView,StyleSheet,View,Text,Image,TouchableOpacity,ImageBackground} from 'react-native';
 import React, {useState} from 'react';
 
 const RateRestaurant = () => {
   const [selectStar, setSelectStar] = useState(3);
-  const [maxStar, setMaxStar] = useState([1, 2, 3, 4, 5, 6]);
+  const [maxStar, setMaxStar] = useState([1, 2, 3, 4, 5]);
 
   const filledStar =
     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_filled.png';
@@ -38,33 +38,31 @@ const RateRestaurant = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <Text style={styles.titleText}>
-          Rate this Restaurant
-        </Text>
-        <Text style={styles.textStyle}>
-          What is your Rate?
-        </Text>
-         <Text style={styles.textStyleSmall}>
-          Please provides your experience
-        </Text>
+      <ImageBackground
+          style={{ flex: 5 }}
+          source={require('../assets/logo3.jpg') }
+      >
+      <Image
+          source={require('../assets/menu.png')}
+          style={{ width: 40, height: 40, marginTop: 90 }}
+      />            
+      <Text style={styles.titleText}>Rate Restaurant</Text>
+      <Text style={styles.titleText}>Rate Restaurant</Text>
+      <Text style={styles.textStyle}> Rate Restaurant!</Text>
 
-        <Rate />
-        <Text style={styles.textStyle}>
-
+      <Rate />
+      <Text style={styles.textStyle}>
           {selectStar} / {Math.max.apply(null, maxStar)}
-        </Text>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.buttonStyle}
-          onPress={() => alert(selectStar)}>
-         
-          <Text style={styles.buttonTextStyle}>
-            Send your Rate
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </Text>
+      <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.buttonStyle}
+            onPress={() => alert('Thanks for your participation!')}>        
+      <Text style={styles.buttonTextStyle}>Send</Text>
+      </TouchableOpacity>
+
+    </ImageBackground>
+  </SafeAreaView>
   );
 };
 
@@ -90,12 +88,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginTop: 15,
   },
-  textStyleSmall: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#000',
-    marginTop: 15,
-  },
+
   buttonStyle: {
     justifyContent: 'center',
     flexDirection: 'row',
