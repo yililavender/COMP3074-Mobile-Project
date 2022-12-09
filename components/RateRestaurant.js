@@ -2,7 +2,7 @@
 import {SafeAreaView,StyleSheet,View,Text,Image,TouchableOpacity,} from 'react-native';
 import React, {useState} from 'react';
 
-const App = () => {
+const RateRestaurant = () => {
   const [selectStar, setSelectStar] = useState(3);
   const [maxStar, setMaxStar] = useState([1, 2, 3, 4, 5, 6]);
 
@@ -68,7 +68,7 @@ const App = () => {
   );
 };
 
-export default App;
+export default RateRestaurant;
 
 const styles = StyleSheet.create({
   container: {
