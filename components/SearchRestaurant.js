@@ -12,9 +12,9 @@ const RestaurantDetails = ({id}) => {
 )}
 
 
-const RestaurantFetchDetails = ({name, address, rating}) => {
+const RestaurantFetchDetails = ({name, address, rating, id, onPress, navigation}) => {
   return(
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress} >
         <Text>Restaurant: {name}</Text>
         <Text>Rating: {rating}</Text>
         <Text>Address: {address}</Text>
@@ -64,6 +64,10 @@ export default function SearchRestaurant( {navigation} ) {
                 name={item.name}
                 address={item.formatted_address}
                 rating={item.rating}
+                id={item.place_id}
+                onPress={() => {
+                  navigation.navigate('Test', { id: item.place_id })
+                }}
               />
             )}
             keyExtractor={item=>item.place_id}
