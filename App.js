@@ -7,16 +7,14 @@ import AssetExample from './components/AssetExample';
 
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
+import SearchRestaurant from './components/SearchRestaurant';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.paragraph}>
-        Change code in the editor and watch it change on your phone! Save to get a shareable url.
+        <SearchRestaurant/>
       </Text>
-      <Card>
-        <AssetExample />
-      </Card>
     </View>
   );
 }
