@@ -1,24 +1,17 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-
-// You can import from local files
-import AssetExample from './components/AssetExample';
-
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
 import SearchRestaurant from './components/SearchRestaurant';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>
-        <SearchRestaurant/>
-      </Text>
-    </View>
+    <NavigationContainer>
+      <SearchRestaurant/>
+    </NavigationContainer>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
