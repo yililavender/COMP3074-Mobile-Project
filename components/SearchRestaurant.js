@@ -4,7 +4,15 @@ import { ActivityIndicator } from 'react-native-paper'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-function RestaurantDetails({name, address, rating}) {
+const RestaurantDetails = ({id}) => {
+  return(
+    <TouchableOpacity>
+      <Text>{id}</Text>
+    </TouchableOpacity>  
+)}
+
+
+const RestaurantFetchDetails = ({name, address, rating}) => {
   return(
       <TouchableOpacity>
         <Text>Restaurant: {name}</Text>
@@ -13,12 +21,13 @@ function RestaurantDetails({name, address, rating}) {
       </TouchableOpacity>  
   )}
 
-export default function SearchRestaurant() {
+export default function SearchRestaurant( {navigation} ) {
   const [refresh, setRefresh] = React.useState(0);
   const [isLoading, setLoading] = React.useState(true);
   const [restaurantList, setRestaurants] = React.useState([])
   const [searchText, setText] = React.useState("")
   const [show, setShow] = React.useState(false)
+  const [id, setID] = React.useState(null)
 
   const toggleText = () => setShow(show => !show)
 
@@ -51,7 +60,7 @@ export default function SearchRestaurant() {
             <FlatList
             data={restaurantList}
             renderItem={({item}) => (
-              <RestaurantDetails 
+              <RestaurantFetchDetails 
                 name={item.name}
                 address={item.formatted_address}
                 rating={item.rating}

@@ -3,15 +3,21 @@ import { StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import SearchRestaurant from './components/SearchRestaurant';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 
 export default function App() {
   return (
     <NavigationContainer>
-      <SearchRestaurant/>
+      <Stack.Navigator>
+        <Stack.Screen name="Search" component={SearchRestaurant} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
