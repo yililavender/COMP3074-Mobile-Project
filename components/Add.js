@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 
-export default function AssetExample() {
+
+
+export default function DetailScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.paragraph}>
-        Local files and assets can be imported by dragging and dropping them into the editor
+        Restaurant Name
       </Text>
-      <Image style={styles.logo} source={require('../assets/Logo.png')} />
     </View>
   );
 }
