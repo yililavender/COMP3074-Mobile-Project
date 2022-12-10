@@ -10,7 +10,7 @@ export default function DetailScreen({navigation, route}) {
 
   const getRestaurantDetail = async () => {
     try{
-      const getID = route.params.id
+      const getID = route.params.item.place_id
       const data = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${getID}&key=AIzaSyAYUSjjwuGFc39sHx0iQs9oGcETmzAEesk`)
       const json = await data.json()
       setRestaurant(json.result)
@@ -45,7 +45,7 @@ export default function DetailScreen({navigation, route}) {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={styles.logo} source={require('../assets/tag.png')} />
         </View>
-        <Text style={styles.paragraph}>{restaurant.editorial_summary.overview}</Text>
+        <Text style={styles.paragraph}>{restaurant["editorial_summary"] === undefined? "" : restaurant.editorial_summary.overview}</Text>
         <Text style={styles.paragraph}>{restaurant.current_opening_hours.open_now === 'true' ? 'Open' : 'Closed'}</Text>
         <Text style={styles.paragraph}>Opening Hours:</Text>
         <Text style={styles.paragraph}>{openHrs[0]}</Text>
@@ -55,7 +55,7 @@ export default function DetailScreen({navigation, route}) {
         <Text style={styles.paragraph}>{openHrs[4]}</Text>
         <Text style={styles.paragraph}>{openHrs[5]}</Text>
         <Text style={styles.paragraph}>{openHrs[6]}</Text>
-        <Text style={styles.paragraph}>Share with Friends and Family</Text>
+        <Text style={styles.share}>Share with Friends and Family</Text>
         </>
       }
       </View>
@@ -92,6 +92,13 @@ const styles = StyleSheet.create({
     margin: 24,
     marginTop: 0,
     fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  share: {
+    margin: 24,
+    marginTop: 0,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   }

@@ -64,7 +64,7 @@ function HomeScreen({navigation}) {
               title={item.name}
               rating={item.rating} 
               address={item.formatted_address}
-              onPress={() => navigation.navigate("Details", { id: item.place_id })} 
+              onPress={() => navigation.navigate("Details", { item })} 
               textColor={{color: 'azure'}}
             />)
           }
