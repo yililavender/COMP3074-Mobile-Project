@@ -4,14 +4,6 @@ import { ActivityIndicator } from 'react-native-paper'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const RestaurantDetails = ({id}) => {
-  return(
-    <TouchableOpacity>
-      <Text>{id}</Text>
-    </TouchableOpacity>  
-)}
-
-
 const RestaurantFetchDetails = ({name, address, rating, id, onPress, navigation}) => {
   return(
       <TouchableOpacity onPress={onPress} >
