@@ -32,7 +32,11 @@ export default function DetailScreen({navigation, route}) {
       {
       isLoading ? <ActivityIndicator/> :
       <>
-        <Button title='Add Restaurant' onPress={() => navigation.navigate("Add")}/>
+        <Button title='Add Restaurant' 
+        onPress={() => navigation.navigate("Add", 
+        { name: restaurant.name,
+          address: restaurant.formatted_address,
+          phone: restaurant.formatted_phone_number })}/>
         <Text style={styles.title}>{restaurant.name}</Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={{height: 30, width: 30}} source={require('../assets/location.png')} />
@@ -45,8 +49,8 @@ export default function DetailScreen({navigation, route}) {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={styles.logo} source={require('../assets/tag.png')} />
         </View>
-        <Text style={styles.paragraph}>{restaurant["editorial_summary"] === undefined? "" : restaurant.editorial_summary.overview}</Text>
-        <Text style={styles.paragraph}>{restaurant.current_opening_hours.open_now === 'true' ? 'Open' : 'Closed'}</Text>
+        <Text style={styles.paragraph}>{restaurant["editorial_summary"] === undefined? 
+        "" : restaurant.editorial_summary.overview}</Text>
         <Text style={styles.paragraph}>Opening Hours:</Text>
         <Text style={styles.paragraph}>{openHrs[0]}</Text>
         <Text style={styles.paragraph}>{openHrs[1]}</Text>
