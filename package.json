@@ -15,11 +15,12 @@
     "@expo/vector-icons": "^13.0.0",
     "react-native-paper": "4.9.2",
     "react-native-screens": "~3.15.0",
-    "@react-navigation/stack": "*",
-    "@react-navigation/native": "*",
+    "@react-navigation/stack": "^5.7.0",
+    "@react-navigation/native": "^5.7.0",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-safe-area-context": "4.3.1",
-    "@react-native-community/toolbar-android": "*"
+    "@react-native-community/toolbar-android": "*",
+    "@react-native-community/masked-view": "^0.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
