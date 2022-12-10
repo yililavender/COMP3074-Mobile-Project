@@ -32,7 +32,7 @@ export default function DetailScreen({navigation, route}) {
       {
       isLoading ? <ActivityIndicator/> :
       <>
-        <Button title='Add Restaurant' onPress={() => {}}/>
+        <Button title='Add Restaurant' onPress={() => navigation.navigate("Add")}/>
         <Text style={styles.title}>{restaurant.name}</Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={{height: 30, width: 30}} source={require('../assets/location.png')} />
