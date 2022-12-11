@@ -1,60 +1,72 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, TextInput, Button } from 'react-native';
-
-const DATA = []
-
-function Restaurant({rid, rname, raddress, rphone, rdescription, rtag}) {
-  return (
-    {
-      id: rid,
-      name: rname,
-      address: raddress,
-      phone: rphone,
-      description: rdescription,
-      tag: rtag
-    }
-  )
-}
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AddScreen({navigation, route}) {
-  const [name, setName] = React.useState(route.params.name);
-  const [address, setAddress] = React.useState(route.params.address);
-  const [phone, setPhone] = React.useState(route.params.phone);
-  const [description, setDescription] = React.useState("");
-  const [tag, setTag] = React.useState("");
-
-  const submit = () => {
-    const rid = DATA.length
-    rest = Restaurant(rid, name, address, phone, description, tag)
-    DATA.push(rest)
+  const [rname, setName] = React.useState(route.params.name);
+  const [raddress, setAddress] = React.useState(route.params.address);
+  const [rphone, setPhone] = React.useState(route.params.phone);
+  const [rdescription, setDescription] = React.useState("");
+  const [rtag, setTag] = React.useState("");
+  const [restaurantList, setRestaurants] = React.useState([])
+  
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('data')
+      return jsonValue !== null ? setRestaurants(JSON.parse(jsonValue)) : 
+      setRestaurants();
+    } catch(e) {
+      console.log(e)
+    }
   }
+
+  const submit = async () => {
+    try{
+      const r = {
+        place_id: route.params.place_id,
+        name: rname,
+        address: raddress,
+        phone: rphone,
+        description: rdescription,
+        tag: rtag
+      } 
+      restaurantList.push(r)
+      await AsyncStorage.setItem('data', JSON.stringify(restaurantList))
+    } catch(e) {
+      console.log(e)
+    } finally {
+      navigation.navigate("My Restaurant List")
+    }
+  }
+
+  React.useEffect(() => {getData()})
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Restaurant Name</Text>
       <TextInput style={styles.inputbox} 
       onChangeText={(text) => {setName(text)}} 
-      value={name}
+      value={rname}
       placeholder="Restaurant Name"></TextInput>
       <Text style={styles.label}>Address</Text>
       <TextInput style={styles.inputbox} 
       onChangeText={(text) => {setAddress(text)}} 
-      value={address}
+      value={raddress}
       placeholder="Restaurant Address"></TextInput>
       <Text style={styles.label}>Phone</Text>
       <TextInput style={styles.inputbox} 
       onChangeText={(text) => {setPhone(text)}} 
-      value={phone}
+      value={rphone}
       placeholder="Restaurant Phone"></TextInput>
       <Text style={styles.label}>Description</Text>
       <TextInput style={styles.inputbox} 
       onChangeText={(text) => {setDescription(text)}} 
-      value={description}
+      value={rdescription}
       placeholder="Restaurant Description"></TextInput>
       <Text style={styles.label}>Restaurant Tags</Text>
       <TextInput style={styles.inputbox} 
       onChangeText={(text) => {setTag(text)}} 
-      value={tag}
+      value={rtag}
       placeholder="Restaurant Tags"></TextInput>
       <View>
         <Button title="Add" color="green" onPress={() => {submit()}} />

@@ -20,8 +20,8 @@ export default function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("Rate Restaurants")}/>
         <Item title='My Favorites' 
         onPress={() => navigation.navigate("My Favorites")}/>
-        <Item title='Restaurant Visited' 
-        onPress={() => navigation.navigate("Restaurant Visited")}/>
+        <Item title='My Restaurant List' 
+        onPress={() => navigation.navigate("My Restaurant List")}/>
         <Item title='About Us' 
         onPress={() => navigation.navigate("About Us")}/>
       </View>

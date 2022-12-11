@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Text, StyleSheet, Button, TouchableOpacity, FlatList, SafeAreaView, TextInput, ActivityIndicator } from 'react-native';
 
-function Item({title, address, rating, backgroundColor, textColor, onPress}) {
+function Item({title, address, rating, onPress}) {
   return (
-    <TouchableOpacity style={[styles.item, backgroundColor]} onPress={onPress}>
-      <Text style={[styles.title, textColor]}>{title}</Text>
-      <Text style={[styles.text, textColor]}>Rating: {rating} / 5</Text>
-      <Text style={[styles.text, textColor]}>Address: {address}</Text>
+    <TouchableOpacity style={styles.item} onPress={onPress}>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.text}>Rating: {rating} / 5</Text>
+      <Text style={styles.text}>Address: {address}</Text>
     </TouchableOpacity>
   )
 }
@@ -40,9 +40,7 @@ export default function SearchRestaurants({navigation}) {
       <TextInput style={styles.inputbox} 
       onChangeText={(text) => {setText(text)}} 
       value={searchText}
-      placeholder="Search restaurant" ></TextInput>
-      <Button title='Search' onPress={() => {}}/>
-      
+      placeholder="Search restaurant" ></TextInput>     
       <FlatList 
         data={restaurantList}
         renderItem={

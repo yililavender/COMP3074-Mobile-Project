@@ -1,12 +1,67 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button, ImageBackground , ActivityIndicator, Image} from 'react-native';
+import qs from 'qs';
+import { Linking } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+async function sendEmail(to, subject, body, options = {}) {
+    const { cc, bcc } = options;
+
+    let url = `mailto:${to}`;
+
+    // Create email link query
+    const query = qs.stringify({
+        subject: subject,
+        body: body,
+        cc: cc,
+        bcc: bcc
+    });
+
+    if (query.length) {
+        url += `?${query}`;
+    }
+
+    // check if we can use this link
+    const canOpen = await Linking.canOpenURL(url);
+
+    if (!canOpen) {
+        throw new Error('Provided URL can not be handled');
+    }
+
+    return Linking.openURL(url);
+}
 
 export default function DetailScreen({navigation, route}) {
   const [isLoading, setLoading] = React.useState(true);
   const [restaurant, setRestaurant] = React.useState({})
   const [openHrs, setOpenHrs] = React.useState({})
+  const [restaurantList, setRestaurants] = React.useState([])
+  const [inList, setInList] = React.useState(false)
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('data')
+      return jsonValue !== null ? setRestaurants(JSON.parse(jsonValue)) : 
+      setRestaurants();
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  const isInList = async () => {
+    try{
+        if (restaurantList.length > 0) {
+          restaurantList.map(restaurant => {
+            if (restaurant.place_id === route.params.item.place_id){
+              setInList(true)
+            }
+          })
+        }
+    } catch(e) {
+      console.log(e)
+    }
+  }
 
   const getRestaurantDetail = async () => {
     try{
@@ -24,6 +79,8 @@ export default function DetailScreen({navigation, route}) {
 
   React.useEffect(() => {
     getRestaurantDetail()
+    getData()
+    isInList()
     })
 
   return (
@@ -32,11 +89,13 @@ export default function DetailScreen({navigation, route}) {
       {
       isLoading ? <ActivityIndicator/> :
       <>
+        {!inList &&
         <Button title='Add Restaurant' 
         onPress={() => navigation.navigate("Add", 
         { name: restaurant.name,
           address: restaurant.formatted_address,
-          phone: restaurant.formatted_phone_number })}/>
+          phone: restaurant.formatted_phone_number,
+          place_id: route.params.item.place_id})}/>}
         <Text style={styles.title}>{restaurant.name}</Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={{height: 30, width: 30}} source={require('../assets/location.png')} />
@@ -60,6 +119,7 @@ export default function DetailScreen({navigation, route}) {
         <Text style={styles.paragraph}>{openHrs[5]}</Text>
         <Text style={styles.paragraph}>{openHrs[6]}</Text>
         <Text style={styles.share}>Share with Friends and Family</Text>
+        <Image style={{height: 25, width: 25}} source={require('../assets/mail.png')} />
         </>
       }
       </View>
