@@ -1,38 +1,50 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
+import HomeScreen from "./components/HomeScreen";
+import SearchRestaurants from "./components/SearchRestaurants";
+import RateRestaurtants from "./components/RateRestaurtants";
+import MyFavorites from "./components/MyFavorites";
+import RestaurantVisited from "./components/RestaurantVisited";
+import AboutUs from "./components/AboutUs";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// You can import from local files
-import AssetExample from './components/AssetExample';
-
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>
-        Change code in the editor and watch it change on your phone! Save to get a shareable url.
-      </Text>
-      <Card>
-        <AssetExample />
-      </Card>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name='Home'
+          component={HomeScreen}
+          options={{title: "Welcome"}}
+        />
+        <Stack.Screen
+          name='SearchRestaurants'
+          component={SearchRestaurants}
+          options={{title: "Search Restaurants"}}
+        />
+        <Stack.Screen
+          name='RateRestaurtants'
+          component={RateRestaurtants}
+          options={{title: "Rate Restaurtants"}}
+        />
+        <Stack.Screen
+          name='MyFavorites'
+          component={MyFavorites}
+          options={{title: "My Favorites"}}
+        />
+        <Stack.Screen
+          name='RestaurantVisited'
+          component={RestaurantVisited}
+          options={{title: "Restaurant Visited"}}
+        />
+        <Stack.Screen
+          name='AboutUs'
+          component={AboutUs}
+          options={{title: "About Us"}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
