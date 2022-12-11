@@ -28,10 +28,6 @@ export default function RestaurantList({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput style={styles.inputbox} 
-      onChangeText={(text) => {setText(text)}} 
-      value={searchText}
-      placeholder="Search restaurant" ></TextInput>
       {restaurantList.length > 0 ? 
       <FlatList 
         data={restaurantList}
@@ -67,12 +63,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#795906',
     padding: 20,
     marginVertical: 6
-  },
-  inputbox: {
-    height:40, 
-    borderColor:"gery", 
-    borderWidth:1, 
-    width:'100%',
-    marginBottom: 15
   }
 });

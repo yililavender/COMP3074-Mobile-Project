@@ -35,7 +35,7 @@ export default function AddScreen({navigation, route}) {
     } catch(e) {
       console.log(e)
     } finally {
-      navigation.navigate("My Restaurant List")
+      navigation.navigate("Home")
     }
   }
 

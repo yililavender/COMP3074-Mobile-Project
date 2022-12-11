@@ -1,36 +1,8 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Button, ImageBackground , ActivityIndicator, Image} from 'react-native';
-import qs from 'qs';
-import { Linking } from 'react-native';
+import { Text, View, StyleSheet, Button, ImageBackground , ActivityIndicator, Image, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import email from 'react-native-email'
 
-
-async function sendEmail(to, subject, body, options = {}) {
-    const { cc, bcc } = options;
-
-    let url = `mailto:${to}`;
-
-    // Create email link query
-    const query = qs.stringify({
-        subject: subject,
-        body: body,
-        cc: cc,
-        bcc: bcc
-    });
-
-    if (query.length) {
-        url += `?${query}`;
-    }
-
-    // check if we can use this link
-    const canOpen = await Linking.canOpenURL(url);
-
-    if (!canOpen) {
-        throw new Error('Provided URL can not be handled');
-    }
-
-    return Linking.openURL(url);
-}
 
 export default function DetailScreen({navigation, route}) {
   const [isLoading, setLoading] = React.useState(true);
@@ -49,8 +21,9 @@ export default function DetailScreen({navigation, route}) {
     }
   }
 
-  const isInList = async () => {
+  const checkInList = async () => {
     try{
+        await getData()
         if (restaurantList.length > 0) {
           restaurantList.map(restaurant => {
             if (restaurant.place_id === route.params.item.place_id){
@@ -77,10 +50,20 @@ export default function DetailScreen({navigation, route}) {
     }
   } 
 
+  handleEmail = () => {
+      const to = [] 
+      email(to, {
+          subject: `${restaurant.name}` + ' Details',
+          body: `${restaurant.name}\n${restaurant.phone}\n`,
+          checkCanOpen: false
+      }).catch(console.error)
+    }
+
   React.useEffect(() => {
-    getRestaurantDetail()
-    getData()
-    isInList()
+    checkInList()
+    if (!inList) {
+      getRestaurantDetail()
+    }
     })
 
   return (
@@ -98,16 +81,29 @@ export default function DetailScreen({navigation, route}) {
           place_id: route.params.item.place_id})}/>}
         <Text style={styles.title}>{restaurant.name}</Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Image style={{height: 30, width: 30}} source={require('../assets/location.png')} />
-          <Text style={styles.paragraph}>{restaurant.formatted_address}</Text>
+          <Image style={{height: 30, width: 30}} 
+          source={require('../assets/location.png')} />
+          <Text style={styles.paragraph}>{inList ? restaurant.address :
+          restaurant.formatted_address}</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={styles.logo} source={require('../assets/call.png')} />
-          <Text style={styles.paragraph}>{restaurant.formatted_phone_number}</Text>
+          <Text style={styles.paragraph}>{inList ? restaurant.phone :
+          restaurant.formatted_phone_number}</Text>
         </View>
+        { inList ? <>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image style={styles.logo} source={require('../assets/tag.png')} />
-        </View>
+          <Text style={styles.paragraph}>{restaurant.tag}</Text>
+        </View> 
+        <Text style={styles.paragraph}>{restaurant.description}</Text> 
+        <Text style={styles.share}>Share with Friends and Family</Text>
+        <TouchableOpacity onPress={() => handleEmail()}>
+          <Image style={{height: 35, width: 35}} 
+          source={require('../assets/mail.png')} />
+        </TouchableOpacity>
+        </> : 
+        <>
         <Text style={styles.paragraph}>{restaurant["editorial_summary"] === undefined? 
         "" : restaurant.editorial_summary.overview}</Text>
         <Text style={styles.paragraph}>Opening Hours:</Text>
@@ -118,8 +114,7 @@ export default function DetailScreen({navigation, route}) {
         <Text style={styles.paragraph}>{openHrs[4]}</Text>
         <Text style={styles.paragraph}>{openHrs[5]}</Text>
         <Text style={styles.paragraph}>{openHrs[6]}</Text>
-        <Text style={styles.share}>Share with Friends and Family</Text>
-        <Image style={{height: 25, width: 25}} source={require('../assets/mail.png')} />
+        </>}
         </>
       }
       </View>
