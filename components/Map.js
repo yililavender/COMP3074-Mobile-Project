@@ -7,35 +7,35 @@ import Constants from 'expo-constants'
 
 GOOGLE_API_KEY = ''
 
-type InputAutocompleteProps = {
-  label: string;
-  placeholder?: string;
-  onPlaceSelected: (details: GooglePlaceDetail | null) => void;
-};
+// type InputAutocompleteProps = {
+//   label: string;
+//   placeholder?: string;
+//   onPlaceSelected: (details: GooglePlaceDetail | null) => void;
+// };
 
-function InputAutocomplete({
-  label,
-  placeholder,
-  onPlaceSelected,
-}: InputAutocompleteProps){
-  return(
-    <>
-      <Text>{label}</Text>
-      <GooglePlacesAutocomplete
-          styles={{ textInput: styles.input }}
-          placeholder={placeholder || ""}
-          fetchDetails
-          onPress={(data, details = null) => {
-            onPlaceSelected(details)
-          }}
-          query={{
-            key: {GOOGLE_API_KEY},
-            language: "pt-BR"
-          }}
-        />
-    </>
-  )
-}
+// function InputAutocomplete({
+//   label,
+//   placeholder,
+//   onPlaceSelected,
+// }: InputAutocompleteProps){
+//   return(
+//     <>
+//       <Text>{label}</Text>
+//       <GooglePlacesAutocomplete
+//           styles={{ textInput: styles.input }}
+//           placeholder={placeholder || ""}
+//           fetchDetails
+//           onPress={(data, details = null) => {
+//             onPlaceSelected(details)
+//           }}
+//           query={{
+//             key: {GOOGLE_API_KEY},
+//             language: "pt-BR"
+//           }}
+//         />
+//     </>
+//   )
+// }
 
 const Map = () => {
   const [origin, setOrigin] = useState("")
