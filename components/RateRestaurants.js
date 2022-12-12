@@ -39,15 +39,15 @@ const RateRestaurtants = () => {
     <SafeAreaView style={styles.container}>
       <ImageBackground
           style={{ flex: 5 }}
-          source={require('../assets/homepage.png') }
+          source={require('../assets/icon.png') }
       >
       <Image
-          source={require('../assets/icon.png')}
+          source={require('../assets/Logo.png')}
           style={{ width: 40, height: 40, marginTop: 90 }}
       />            
       <Text style={styles.titleText}>Rate Restaurant</Text>
-      <Text style={styles.titleText}>Rate Restaurant</Text>
-      <Text style={styles.textStyle}> Rate Restaurant!</Text>
+      <Text style={styles.titleText}>We want to hear from you</Text>
+      <Text style={styles.textStyle}>Thanks for your rating!</Text>
 
       <Rate />
       <Text style={styles.textStyle}>
@@ -110,4 +110,3 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
 });
-

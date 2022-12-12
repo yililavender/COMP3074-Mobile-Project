@@ -1,14 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
+import * as React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { StackActions } from '@react-navigation/native';
 
 export default function MyFavorites({ navigation, route }) {
 
   return (
-        
-    
-      <StatusBar style="auto" />
-    
+    <View>
+      <Text>My Favorites</Text>
+    </View>   
   );
 }
 
