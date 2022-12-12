@@ -1,48 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, View, ImageBackground } from 'react-native';
-const Separator = () => (
-  <View style={styles.separator} />
-);
+import { StyleSheet, Button, View, ImageBackground, TouchableOpacity, Text } from 'react-native';
 
+function Item({title, onPress}) {
+  return (
+    <TouchableOpacity style={styles.item} onPress={onPress}>
+      <Text style={styles.text}>{title}</Text>
+    </TouchableOpacity>
+  )
+}
 
 export default function HomeScreen({ navigation }) {
 
   const localImage = require("../assets/homepage.png");
   return (
-    <ImageBackground source={localImage} resizeMode='cover' style={styles.container}>
-      <Button
-        title="Search Restaurants" 
-        onPress={() => navigation.navigate("SearchRestaurants")}
-      />
+    <ImageBackground source={localImage} style={styles.container}>
+      <View>
+        <Item title="Search Restaurants" 
+        onPress={() => navigation.navigate("SearchRestaurants")} />
 
-      <Separator />
+        <Item title="Rate Restaurtants"
+        onPress={() => navigation.navigate("RateRestaurtants")} />
 
-      <Button 
-        title="Rate Restaurtants"
-        onPress={() => navigation.navigate("RateRestaurtants")}
-      />
+        <Item title="My Favorites"
+        onPress={() => navigation.navigate("MyFavorites")} />
 
-      <Separator />
+        <Item title="Restaurant Visited"
+        onPress={() => navigation.navigate("RestaurantVisited")} />
 
-       <Button 
-        title="My Favorites"
-        onPress={() => navigation.navigate("MyFavorites")}
-      />
-
-      <Separator />
-
-
-       <Button 
-        title="Restaurant Visited"
-        onPress={() => navigation.navigate("RestaurantVisited")}
-      />
-      
-      <Separator />
-
-       <Button 
-        title="About Us"
-        onPress={() => navigation.navigate("AboutUs")}
-      />
+        <Item title="About Us"
+        onPress={() => navigation.navigate("AboutUs")} />
+      </View>
     </ImageBackground>
   );
 }
@@ -56,11 +43,13 @@ const styles = StyleSheet.create({
     
   },
 
-  separator: {
-    marginVertical: 50,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  item: {
+    padding: 30,
+    marginVertical: 6
   },
-
-
+  text: {
+    color: 'white',
+    fontSize: 32,
+    fontWeight: 'bold'
+  }
 });
